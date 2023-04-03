@@ -1,0 +1,39 @@
+= Tibero
+:toc:
+:toclevels: 2
+:icons: font
+:imagesdir: ./src/img
+:doctype: book
+:docdate: 2023-04-03
+:sectlinks:
+:source-highlighter: highlight.js
+
+== Environment
+[upper]
+- Windows 10 Home 64bit
+- JRE 1.8
+
+
+=== version
+- tibero 6
+- license `2023.04.03` ~ `2023.10.03`
+
+=== tools
+
+- Tibero Admin
+
+=== config
+[%autowidth]
+|==== 
+| Name | Localhost 
+| Server IP | localhost 
+| Port | 8629 `(default)`
+| User | sys `(default)`
+| DB Nmae (SID) | tibero `(default)`
+| Character Set | UTF8
+| DB Type | TIBERO_6X
+|==== 
+
+== Getting Started
+
+
