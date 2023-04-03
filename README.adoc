@@ -8,8 +8,13 @@
 :sectlinks:
 :source-highlighter: highlight.js
 
+REFR::
+
+* https://sy-dev.tistory.com/30[Spring Boot + My Batis + Tibero6 + gradle]
+* https://keepbang.tistory.com/5[Spring Boot + tibero + mybatis 연동하기]
+
 == Environment
-[upper]
+
 - Windows 10 Home 64bit
 - JRE 1.8
 
@@ -27,9 +32,9 @@
 |==== 
 | Name | Localhost 
 | Server IP | localhost 
-| Port | 8629 `(default)`
-| User | sys `(default)`
-| DB Nmae (SID) | tibero `(default)`
+| Port | 8629 #(default)#
+| User | sys #(default)#
+| DB Nmae (SID) | tibero #(default)#
 | Character Set | UTF8
 | DB Type | TIBERO_6X
 |==== 
