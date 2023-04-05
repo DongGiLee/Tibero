@@ -12,6 +12,8 @@ REFR::
 
 * https://sy-dev.tistory.com/30[Spring Boot + My Batis + Tibero6 + gradle]
 * https://keepbang.tistory.com/5[Spring Boot + tibero + mybatis 연동하기]
+* https://velog.io/@coco_hye/%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95[tibero dependencies 추가]
+* https://jyami.tistory.com/44[dependencies 외부 라이브러리 추가방법]
 
 == Environment
 
@@ -41,96 +43,32 @@ REFR::
 
 == Getting Started
 
-
-=== Spring Boot
-
 [upperroman]
 . build.gradle에 dependencies 추가
 
 +
 
+.. 프로젝트 폴더 최상단에 libs 폴더 생성(이름은 마음대로)
+
+.. 폴더에 라이브러리 복사
+
++ 
+
+.tibero dependencies
 ====
-implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
+[.line-through]#dependencies { compile files("libs/tibero6-jdbc-14.jar")}# +
+dependencies{ implementation files("libs/tibero6-jdbc-14.jar") }
 ====
 
 +
 
-CAUTION: java 17 이라서 3.x버전 + 
-java 8 이라면 2.x 버전
-
-. application.properties 추가
+. application.properties에 추가
 
 +
 
 ====
-_# tibero setting_ +
 spring.datasource.url=jdbc:tibero:thin:@[host]:[port]:[DB Name] +
 spring.datasource.username=[account] +
 spring.datasource.password=[password] +
 spring.datasource.driver-class-name=com.tmax.tibero.jdbc.TbDriver +
-
-_# mybatis setting_ +
-mybatis.config-location=classpath:mybatis-config.xml +
-mybatis.mapper-locations=mappers/****/*.xml +
 ====
-
-. SqlSession @Bean 추가
-
-+
-
-[source,java]
-----
-package [package];
-
-import javax.sql.DataSource;
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-
-@SpringBootApplication
-@MapperScan(value= {"[package].mapper"})
-public class [project name]Application {
-	public static void main(String[] args) {
-		SpringApplication.run([project name]Application.class, args);
-	}
-	
-    //SqlSessionFactory 설정 
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-		
-		sessionFactory.setDataSource(dataSource);
-		
-		Resource configLocation = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml");
-		
-		sessionFactory.setConfigLocation(configLocation);
-		
-		return sessionFactory.getObject();
-	}
-}
-----
-
-. src/main/resources에 mybatis-confi.xml 추가
-
-+
-
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-    <typeAliases>
-    
-    </typeAliases>
-    <mappers>
-        <mapper resource="mappers/[mapper name].xml"/>
-    </mappers>
-</configuration>
-----
